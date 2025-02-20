@@ -9,10 +9,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import Image from "next/image";
-import ResponsiveAppBar from "@/components/navbar/page";
-import Page from "@/components/footer/page";
+import ResponsiveAppBar from "@/components/Navbar/Navbar";
+import Page from "@/components/footer/Footer";
 import FoodI from "../../../assets/food.png";
-import CardS from "../../../components/cards/page";
+import CardS from "../../../components/DropDownButton/DropDownButton";
 
 export default function DetailUI() {
   const [selectedFood, setSelectedFood] = useState(null);
@@ -23,30 +23,30 @@ export default function DetailUI() {
   
   const categories = ["All", "Fast Food", "Chinese Food", "Seafood", "Sweet"];
 
-  // Sample food data with categories
+
   const food = [
-    // Fast Food
+  
     { description: "Kids eat free", image: FoodI, name: "Waffle Fries", rating: "3", distance: "10KM", time: "30 min", price: "$10", category: "Fast Food" },
     { description: "Kids eat free", image: FoodI, name: "Chicken Nuggets", rating: "3", distance: "10KM", time: "30 min", price: "$10", category: "Fast Food" },
     { description: "Kids eat free", image: FoodI, name: "Cheeseburger", rating: "3", distance: "10KM", time: "30 min", price: "$10", category: "Fast Food" },
     { description: "Double Cheese Burger", image: FoodI, name: "Double Patty Burger", rating: "4", distance: "6KM", time: "18 min", price: "$9", category: "Fast Food" },
     { description: "Crispy Onion Rings", image: FoodI, name: "Onion Rings", rating: "4", distance: "9KM", time: "20 min", price: "$8", category: "Fast Food" },
 
-    // Seafood
+  
     { description: "Fresh Grilled Salmon", image: FoodI, name: "Grilled Salmon", rating: "5", distance: "7KM", time: "25 min", price: "$18", category: "Seafood" },
     { description: "Crispy Fried Shrimp", image: FoodI, name: "Fried Shrimp", rating: "4", distance: "8KM", time: "22 min", price: "$15", category: "Seafood" },
     { description: "Lobster Roll", image: FoodI, name: "Lobster Roll", rating: "5", distance: "6KM", time: "20 min", price: "$20", category: "Seafood" },
     { description: "Garlic Butter Crab", image: FoodI, name: "Garlic Crab", rating: "5", distance: "9KM", time: "30 min", price: "$22", category: "Seafood" },
     { description: "Fish and Chips", image: FoodI, name: "Fish & Chips", rating: "4", distance: "10KM", time: "28 min", price: "$14", category: "Seafood" },
 
-    // Chinese Food
+  
     { description: "Authentic Chinese", image: FoodI, name: "Kung Pao Chicken", rating: "4", distance: "8KM", time: "25 min", price: "$15", category: "Chinese Food" },
     { description: "Steamed Dumplings", image: FoodI, name: "Dumplings", rating: "5", distance: "7KM", time: "20 min", price: "$13", category: "Chinese Food" },
     { description: "Sweet and Sour Chicken", image: FoodI, name: "Sweet & Sour Chicken", rating: "4", distance: "6KM", time: "22 min", price: "$14", category: "Chinese Food" },
     { description: "Beef Chow Mein", image: FoodI, name: "Chow Mein", rating: "5", distance: "5KM", time: "18 min", price: "$12", category: "Chinese Food" },
     { description: "Spring Rolls", image: FoodI, name: "Spring Rolls", rating: "4", distance: "9KM", time: "24 min", price: "$10", category: "Chinese Food" },
 
-    // Sweet
+  
     { description: "Chocolate Lava Cake", image: FoodI, name: "Chocolate Lava Cake", rating: "5", distance: "5KM", time: "15 min", price: "$7", category: "Sweet" },
     { description: "Strawberry Cheesecake", image: FoodI, name: "Strawberry Cheesecake", rating: "5", distance: "6KM", time: "18 min", price: "$9", category: "Sweet" },
     { description: "Macarons", image: FoodI, name: "Macarons", rating: "4", distance: "7KM", time: "20 min", price: "$8", category: "Sweet" },
@@ -56,26 +56,26 @@ export default function DetailUI() {
 
 
 
-  // Group food by category
+  
   const categorizedFood = food.reduce((acc, item) => {
     if (!acc[item.category]) acc[item.category] = [];
     acc[item.category].push(item);
     return acc;
   }, {});
 
-  // Create refs for each category
+  
   const categoryRefs = Object.keys(categorizedFood).reduce((acc, category) => {
     acc[category] = useRef(null);
     return acc;
   }, {});
 
-  // Scroll to category when button is clicked
+  
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     categoryRefs[category]?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  // Open food detail dialog
+  
   const handleClickOpen = (foodItem) => {
     setSelectedFood(foodItem);
     setOpen(true);
@@ -86,7 +86,7 @@ export default function DetailUI() {
     setSelectedFood(null);
   };
 
-  // Cart functionality
+  
   const handleCartClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -121,7 +121,7 @@ export default function DetailUI() {
     <Box>
       <ResponsiveAppBar />
 
-      {/* Category Buttons */}
+   
       <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 2 }}>
         {categories.map((category) => (
           <Button key={category} variant={selectedCategory === category ? "contained" : "outlined"} onClick={() => handleCategoryClick(category)}>
@@ -131,7 +131,7 @@ export default function DetailUI() {
       </Box>
 
       <Box sx={{ width: "100%", backgroundColor: "#F4F4ED", padding: "20px" }}>
-        {/* Cart Button */}
+   
         <Box sx={{ textAlign: "right", marginBottom: "10px" }}>
           <Button onClick={handleCartClick} sx={{ fontSize: "14px" }}>
             {cart.length} <ShoppingCartIcon fontSize="small" />
@@ -155,7 +155,7 @@ export default function DetailUI() {
           </Menu>
         </Box>
 
-        {/* Display food items by category */}
+   
         {Object.keys(categorizedFood).map((category) => (
           <Box key={category} ref={categoryRefs[category]} sx={{ marginBottom: "40px" }}>
             <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: "10px" }}>
@@ -171,7 +171,7 @@ export default function DetailUI() {
           </Box>
         ))}
 
-        {/* Food Details Dialog */}
+   
         <Dialog onClose={handleClose} open={open}>
           <DialogTitle>
             {selectedFood?.name}

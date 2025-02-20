@@ -2,9 +2,9 @@
 import localFont from "next/font/local";
 import "./globals.css";
 // import Navbar from "./components/navbar/page.js"
-import Footer from "../components/footer/page"
+import Footer from "../components/footer/Footer"
 import { FavoriteItem } from "./context";
-import ResponsiveAppBar from "../components/navbar/page";
+import ResponsiveAppBar from "../components/Navbar/Navbar";
 import React, {useState} from "react";
 
 const geistSans = localFont({
